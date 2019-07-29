@@ -101,13 +101,13 @@ map = {
             map.dMap.appendChild(canvas)
             var context = canvas.getContext("2d")
 
-            for(var i = 0; map.array.length > i;i++){
-                context.beginPath();
-                context.arc(map.array[i][0] + map.array[i][2] / 2, map.array[i][1] + map.array[i][2] / 2, map.array[i][2] / 2, 0, 2 * Math.PI);
-                context.stroke();
-            }
+            //Debug: draws the nodes to find out if the path finding is wrong
+//            for(var i = 0; map.array.length > i;i++){
+//                context.beginPath();
+//                context.arc(map.array[i][0] + map.array[i][2] / 2, map.array[i][1] + map.array[i][2] / 2, map.array[i][2] / 2, 0, 2 * Math.PI);
+//                context.stroke();
+//            }
 
-            //tempEnd
             //move cam to start location
             map.dMap.style.left = -$[loc][0] + (window.innerWidth / 2) + "px";
             map.dMap.style.top = -$[loc][1] + (window.innerHeight / 2) + "px";
