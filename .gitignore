@@ -1,5 +1,6 @@
 # ignore database additions
 database/*
+!database/images/
 !database/images/*
 
 # get rid of generated files
