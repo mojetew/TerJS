@@ -1,0 +1,82 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	overflow: hidden;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+div {
+    background-size: cover;
+}
+
+.pane {
+    min-height: 100%;
+}
+
+.pane, .pane * {
+    position: fixed;
+}
+
+#map, #map * {
+    position: absolute;
+}
+
+#steps * {
+    height: 20px;
+    padding-left: 10px;
+    transition: opacity 1s;
+}
+
+#scene, #scene * {
+    width: 100%;
+    height: 100%;
+}
+
+#chatBox {
+    left: 2%;
+    top: 40%;
+    width: 45%;
+}
+
+#chatBox * {
+    position: relative;
+    height: auto;
+    background-color: black;
+    color: white;
+    padding-top:5px;
+    padding-left:10px;
+    padding-bottom:5px;
+    padding-right:10px;
+    border-radius:8px;
+}
+
+#choiceBox {
+    left: 2%;
+    top: 75%;
+}
+
+#choiceBox * {
+    position: relative;
+    height: auto;
+    width: fit-content;
+    background-color: black;
+    color: white;
+    padding-top:5px;
+    padding-left:10px;
+    padding-bottom:5px;
+    padding-right:10px;
+}
+
+#character{
+    right: 0;
+    opacity: 0;
+    transition: right 1s, opacity 1s;
+}
+
+img {
+    pointer-events: none;
+}
