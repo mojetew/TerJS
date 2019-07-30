@@ -92,16 +92,14 @@ map = {
 		map.img.src = DB.asset("maps/" + url + ".jpg");
         DB.get("maps/" + url + "_data",function($){
             map.array = $;
-            //temp
-            var canvas = document.createElement("canvas")
-            canvas.style.width = "100%"
-            canvas.style.height = "100%"
-            canvas.width = map.img.offsetWidth
-            canvas.height = map.img.offsetHeight
-            map.dMap.appendChild(canvas)
-            var context = canvas.getContext("2d")
-
             //Debug: draws the nodes to find out if the path finding is wrong
+//            var canvas = document.createElement("canvas")
+//            canvas.style.width = "100%"
+//            canvas.style.height = "100%"
+//            canvas.width = map.img.offsetWidth
+//            canvas.height = map.img.offsetHeight
+//            map.dMap.appendChild(canvas)
+//            var context = canvas.getContext("2d")
 //            for(var i = 0; map.array.length > i;i++){
 //                context.beginPath();
 //                context.arc(map.array[i][0] + map.array[i][2] / 2, map.array[i][1] + map.array[i][2] / 2, map.array[i][2] / 2, 0, 2 * Math.PI);
