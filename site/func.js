@@ -6,7 +6,8 @@ func = {
             var i
             if(i = save.clicked[scene.character])
                 if(i = i[scene.currP])
-                    return i.includes(scene.choices[func.currP].text.hashCode())
+                    if(!scene.choices[func.currP].text) return i.includes("Empty")
+                    else return i.includes(scene.choices[func.currP].text.hashCode())
             return false
         },
         index_is:function(name){
@@ -155,7 +156,7 @@ func = {
         curated_list:function(type){
           if(type == "prioritized")setTimeout(function(){scene.choiceMade(scene.shownChoices[0])})
           else if(type == "random")setTimeout(function(){scene.choiceMade(scene.shownChoices[Math.floor(scene.shownChoices.length * Math.random())])})
-          else console.log("weighted curated list found!")//todo find out how weighted curated lists work
+          else console.log("weighted curated list found!")//todo weights: 10, 20, 30, 40, 50
         },
         //changes the diag file of the character currently read
         change_diag_file:function(name, pointer){
@@ -287,7 +288,11 @@ func = {
         //can also use words for time of day, has fadeout effect
         advance_time_to:function(time){
             //todo fadeout-effect
-            map.advTime((time * 2) - save.time)
+            if(time == "morning")map.advTime(50 - save.time)
+            else if(time == "noon")map.advTime(50 - save.time)
+            else if(time == "evening")map.advTime(50 - save.time)
+            else if(time == "night")map.advTime(50 - save.time)
+            else map.advTime((time * 2) - save.time)
         },
         start_music:function(name, volume, fOut, fIn, noLoop){
             func.fade.clearFades()

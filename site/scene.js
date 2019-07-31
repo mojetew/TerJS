@@ -23,13 +23,17 @@ scene = {
                     scene.bGround.width = env.width;
                     scene.bGround.height = env.height;
                     if(done)done();
+                    //background color
                     ctx.drawImage(bgStuff[4], 0, 0, env.width, env.height);
                     ctx.globalAlpha = save.time % 50 / 50;
                     ctx.drawImage(bgStuff[5], 0, 0, env.width, env.height);
+                    //clouds
+                    ctx.globalCompositeOperation = "lighter";
                     for(var i=0;i < 4;i++){
-                        ctx.globalAlpha = Math.random()
+                        ctx.globalAlpha = (Math.random() / 3)
                         ctx.drawImage(bgStuff[i], 0, 0, env.width, env.height);
                     }
+                    ctx.globalCompositeOperation = "source-over";
                     ctx.globalAlpha = 1;
                     ctx.drawImage(env, 0, 0);
                     ctx.globalCompositeOperation = "multiply";
@@ -155,7 +159,8 @@ scene = {
         scene.pointer = pointer
         DB.get(path + "/" + scene.character + "/" + scene.diag, function($){
             var p = $['p' + pointer];
-            var texts = p.text.split("\"")
+            if(!p.text) var texts = []
+            else var texts = p.text.split("\"")
             //get rid of old sounds
             while(func.sounds.firstChild)func.sounds.removeChild(func.sounds.firstChild)
             //perform all the functions of the pointer
@@ -187,21 +192,19 @@ scene = {
                 //check if the choice should be drawn
                 if(choice.ifs){
                     for(var o = 0; o < choice.ifs.length;o++){
-                        var ifs = choice.ifs[o]
-                        for(var l = 0; l < ifs[o].length;l++){
-                        var IF = choice.ifs[l].split(".")
-                            if(func.condition[IF[1]]){
-                                func.currP = i
-                                var bool = func.condition[IF[1]].apply(null, IF.splice(2));
-                                if(IF[0] == "showif")bool = !bool
-                                if(bool)continue cLoop
-                            }else if(save.stats[IF[1]]){
-                                var bool = func.condition.has_stat.apply(null, IF.splice(1));
-                                if(IF[0] == "showif")bool = !bool
-                                if(bool)continue cLoop
-                            }
-                            else alert("condition: \"" + IF[1] + "\" does not exist!")
+                        var IF = choice.ifs[o].split(".")
+                        if(func.condition[IF[1]]){
+                            //func needs to know the pointer for onclick
+                            func.currP = i
+                            var bool = func.condition[IF[1]].apply(null, IF.splice(2));
+                            if(IF[0] == "showif")bool = !bool
+                            if(bool)continue cLoop
+                        }else if(save.stats[IF[1]]){
+                            var bool = func.condition.has_stat.apply(null, IF.splice(1));
+                            if(IF[0] == "showif")bool = !bool
+                            if(bool)continue cLoop
                         }
+                        else alert("condition: \"" + IF[1] + "\" does not exist!")
                     }
                 }
                 var dom = document.createElement("div");
@@ -221,7 +224,8 @@ scene = {
         if(choice.ifs && (choice.ifs.includes("hideif.clicked") || choice.ifs.includes("showif.clicked"))){
             var i
             var o
-            var hash = scene.choices[id].text.hashCode()
+            if(!scene.choices[id].text)var hash = "Empty"
+            else var hash = scene.choices[id].text.hashCode()
             if(i = save.clicked[scene.character]){
                 if(o = i[scene.currP]){
                     if(!o.includes(hash))o.push(hash)
